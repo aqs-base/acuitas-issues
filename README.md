@@ -8,6 +8,6 @@ How to file issues:
 2. Provide a useful description of the problem, what you expected, and what you saw happen. Screenshots are welcome, but again, make sure they don't have any license or api info in them.
 3. Be patient and try to answer any followup questions in a timely manner. The devs are quite busy and sometimes might not reply immediately.
 
-*This repo is not meant for sales questions.* You can direct those to the official Acuitas Discor group: https://discord.gg/k9Zrhmt
+*This repo is not meant for sales questions.* You can direct those to the official Acuitas Discord group: https://discord.gg/k9Zrhmt
 
 Any spam or non-Acuitas related issues will be deleted.
