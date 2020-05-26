@@ -11,3 +11,5 @@ How to file issues:
 *This repo is not meant for sales questions.* You can direct those to the official Acuitas Discord group: https://discord.gg/k9Zrhmt
 
 Any spam or non-Acuitas related issues will be deleted.
+
+Changelog can be found [here](https://github.com/aqs-base/acuitas-issues/blob/master/Changelog.md).
