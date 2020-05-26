@@ -1,0 +1,434 @@
+The Changelog
+===
+
+1.1.0-beta15
+===
+
+Feb 8, 2020
+
+#### Changes
+
+* We're now using our cloud datastore as our source of truth for all candles. This allows us now to remove the burden of talking to the exchange for this data and therefore allows us to reduce the number of api requests we make to the exchange. This allows us to speed up the app and in our testing, Coinbase Pro speed is now on par with Binance.
+* We have standardized on candle interval lengths. These lengths are: 1m, 5m, 15m, 30m, 1hr, 4hr, 1d. We feel that these intervals should provide enough options for candles sizes for everyone. We will automatically migrate any Binance 3m pairs to 5m pairs. Other intervals will be disabled. You will have to exit your positions manually on the exchange and delete those pairs in the bot.
+* On the details panel the amount information updates on a regular interval. Some users complained that their 5% was not accurate over time - this was true on the UI since that amount was fixed from the point in time the price was calculated (the trading engine does not have this limitation). Using an update interval, you can now see more accurate, up to date information.
+* We have removed the Desktop/GUI launcher as this was just creating too many problems for users. There were some weird dependencies that caused issues with the backtesting and our build/distribution process was just too complicated. We are now using the Windows installer/launcher for Windows users and Mac & Linux users can use the command line scripts. See your local *-guide.txt file for more info on how to run on your platform.
+
+####Fixes
+
+* Base/Quote conversion display on the trading pairs front panel was not updating correctly. It is now in sync with the back and details panels.
+* Manual entry/exits were not using the correct event type for each side in the order event log. This is now fixed.
+* Binance engine percentage code now correctly uses the fills qty/price from an entry order to exit.
+* More database fine tuning for performance and file size.
+
+##### Known Issues
+
+* None.
+
+This is the last release before the final 1.1.0. Please report any issues you see. Thanks!
+
+
+1.1.0-beta14
+===
+
+Jan 21, 2020
+
+#### Changes
+
+* We're back to SQLite - from scratch this time. Efforts to try to migrate this before didn't go as planned and since trying to stabilize on a new db engine, we're just wiping the slate clean. Our goal is to NOT have to deal with any of these types of issues post final release. So we're doing them now. This means you will need to get out of your positions on the exchange and go through the setup process again.
+* Removed the step of the setup that asks you to input the timezone and locale. We can get these from the host os now and so this whole step has been removed.
+* Updated the token icon set.
+
+####Fixes
+
+* Base/Quote conversion fixes on the edit pair modal for percentage. This prevented some people from editing this value.
+
+##### Known Issues
+
+* It appears that 1m candles on Coinbase Pro are not working as expected. This means that backtests using 1m candles on Coinbase Pro never complete. We're looking into this and hope to have a fix by final.
+
+We *really* trying to get the beta wrapped up, so please report any issues you see so we can get these resolved.
+
+
+
+1.1.0-beta13
+===
+
+Jan 18, 2020
+
+** THIS IS STILL A PRELIMINARY BETA AS TESTING HAS NOT CONCLUDED ON COINBASE PRO **
+
+If you have any CB Pro issues, stop the bot and go back to beta 11.
+
+####Fixes
+
+* Database rollback back to the version beta 11 used. There were issues with the SQLite and there isn't the bandwidth right now to dive into that more. So, this will use the previous mv.db file.
+* You can now truncate the database. Hopefully this will help speed things up. Go to Settings -> Maintenance tab to use this feature.
+* Reworking of the trading engine and use to better handle trade and candle streams. This is part of the ongoing work to reduce code cruft and speed execution up.
+
+As always, please report any issues you see so we can get these resolved.
+
+
+
+1.1.0-beta12 (2112)
+===
+
+Jan 10, 2020
+
+## 🥁🥁🥁 Neil Peart, R.I.P. 🥁🥁🥁
+
+ > We've taken care of everything
+ > The words you read, the songs you sing
+ > The pictures that bring laughter to your eye
+ > It's one for all and all for one
+ > We work together, common son
+ > Never need to wonder how or why
+
+This week, one of my few heroes has died. Neil Peart entered my life when I was young, at the beginning of my teenage years. At first, he set the standard for me as to what a master drummer could be. I grew up thinking that how he played drums naturally made sense and all drummers should and would aspire to play like him. Through my teens and twenties as I weaved my way through various bands, I sadly learned that the opposite was true. No one played like him.
+
+No one thought like him either. 
+
+As I grew up with Rush, I found Neil's other, even more underrated masterful ability - his lyrics. Neil wrote almost all the lyrics for the second Rush album on. He wrote of fairly typical topics on the early recoards until their breakout: 2112. That album to me, was where his lyrics hit high gear and never looked back. There was intent and purpose in everything he wrote. I appreciate that even more in modern times because I think it is sorely lacking in today's music and art.
+
+I mention all this because I have dropped all kinds of easter eggs into the code of the bot (the majority you'll never see) based off his words and ideas. The first song on 2112 still holds relevance for me today. Actually, even more so. Not just for Bitcoin/Crypto and giving people control of how they transact with *their* money , but also because it spoke of the power of collectivism and totalitarian state against the individual. I'd encourage anyone interested in these topics to load up 2112, get the lyrics next to them, and spend the 20-30 mins listening and thinking. Yah, it's 70's rock, not the music of today, but its words, music, and songwriting are timeless.
+
+Rush, and Neil in particular shaped a lot of my youth and I constantly go back to lyrical passages when I'm reflecting on life, family, friends, and the world in general. I can recommend the years 1975-1982 from their catalog. Those were their most prolific for me. If you do decide to take a listen, I hope you enjoy and dig a little deeper under the surface.
+
+ > Each of us, a cell of awareness. 
+ > Imperfect and incomplete. 
+ > Genetic blends with uncertain ends.
+ > On a fortune hunt that's far too fleet.
+ 
+ 
+Nibaru
+ 
+===
+
+##### DATABASE MIGRATION
+
+Beta 12 has a new database! We've switched from an encrypted embedded database to SQLite. Some users have had speed issues and it was laborious for me to deal with it. SQLite supports multi-terabyte databases (not that you'll ever have one that big) and I am more confident in its ability to speed things up as well as be a more efficient store.
+
+There is a path through all this, so please read on.
+
+Before you do anything, shut down your bot and backup you mv.db file. Worst case if something catastrophic happens, you can run beta 11 against the old database and then we can chat in the support channel what the problem is. 
+
+There are two scripts that will put beta12 into migration mode:
+```
+Desktop-Migrate.ps1
+desktop-migrate.sh
+```
+
+Windows users need to right click on ```Desktop-Migrate.ps1``` and select Run. This will start up the bot with the migrate flag, which shows a modified ui. 
+
+Mac/Linux users, open up a shell, cd to the directory where beta 12 was unzipped (search for how to ```cd``` in a terminal/shell if you don't know how to). Sorry, there's no other way to make this easier right now. Once you are in that directory type:
+```./desktop-migrate.sh```
+
+Once the gui is up, you will see a modified ui. There is only one thing to do on this ui and that's to run the migration process. 
+
+Click the ```Migrate``` button to begin this process. DO NOT EXIT or do anything else. I've run this many times and it is stable, so you shouldn't have any problems. The bot will give feedback in the text panel on the migration progress. Depending on how big your database is, it could take from a few mins to about 45 mins. I did a 21GB database migration and it took about 45 mins for me. On a smaller database, it was done in under 5 mins. 
+
+Once the data base been migrated, the gui and bot will exit automatically. You can then run it as you normally do by double clicking on the beta12 jar or via one of the script/bat file methods.
+
+Lastly, because none of the database is encrypted now, it's up to YOU to secure it. If you put this on a VPS, make sure you have it secured! And if you don't know how to do that, ask around on the channel and someone will help. This is YOUR database, so, treat it as such.
+
+(Migration instructions end)
+
+#### Fixes
+
+* On pair details screen, the trades list now reflects the qty of a buy order. Before it would not show this.
+* Manual buy/sells can now be done with the pair turned off. This is nice and allows you to buy/sell without having to worry that your trying to time things with the bot engine.
+* I think the exit bug is fixed. This was due to, of course, a rounding error that would cause the exit qty to round up based on the quote price scale. Now, it rounds down correctly.
+
+As always, please report any issues you see so we can get these resolved.
+
+
+
+1.1.0-beta11
+===
+
+Dec 24, 2019
+
+🎄🎄🎄 MERRY CHRISTMAS! 🎄🎄🎄
+
+##### IMPORTANT: We are now distributing TWO jar files. They first has the name Desktop in it and the second has the name Server in it.
+
+##### Desktop now runs a gui control panel where you can set the bot port and start / stop the bot. This should make it much easier to launch and control for all Desktop users. You should be able to just double-click on the jar file to run.
+
+##### Server will run in text console mode (like all builds did before) and is meant to run on a vps/local server.
+
+This release does not address running multiple bots on different ports. For any bot after your first, you will need to run separately via the Server with whatever custom start script you have.
+
+---
+
+* As noted above, the releases have been split into different jars and there is now a gui launcher. This gui launcher should run on all platforms by just double-clicking the Desktop jar file.
+* This release is still Java 8 only, but work has been done internally to free us of that. Upcoming releases will not be bound to this.  
+* This release mostly targeted bugs and performance. The local trades database is now pruned which should help prevent memory from getting out of control.
+* All exceptions are logged into a separate exceptions.log file.
+
+Known issues
+---
+
+* Some users have experienced an issue where the bot does not exit at the expected stop loss percentage. This work is still ongoing and the exceptions log should now help diagnose this issue so it can be fixed in the next build.
+
+As always, please report any issues you see so we can get these resolved.
+
+
+1.1.0-beta10
+===
+
+Dec 14, 2019
+
+* WINDOWS USERS: Please use the Powershell launcher now. This has much better cpu and performance utilization. Right click on the Start-Acuitas file and select 'Run with PowerShell'. You will see significant performace gains using this. The old start.bat file will be removed in beta11.
+* Coinbase Pro: All markets have been enabled.
+* Binance: Enabled PAX and TUSD markets.
+* All fiat based values should now be converted for display correctly. Testing this mostly involved our GBP and EUR friends.
+* Paper and Live Trades now present a confirmation dialog when deleting.
+* Fixes for some issues people were seeing with prices not displaying correctly on the Paper/Live Trade edit modals.
+* Internal improvements to better manage memory and better utilize concurrency.
+
+
+1.1.0-beta9
+===
+
+Dec 6, 2019
+
+* Paper trading fixed values are now zeroed out when newly created. Before, the fixed amount value was carried over from the backtest and this didn't need to adhere to the paper trading balance for that quote asset. Paper trades are now turned off by default on new create and cannot be turned on until a valid quote amount is entered on the edit modal.
+* Better validation for Paper and Live trade edit screens. Minimum order sizes are now better enforced so that you cannot enter a quote amount on the edit screen lower than what the exchange specifies as a minimum.
+* Fixes to the manual buy/sell to make sure that the appropriate time for order creation is the current 'now' time.
+* Introduced a 'db' flag that will allow you to specify what you want your database to be named. This will create a directory of the same name user your user's home directory. This will also allow multiple bot instances to be run on the same machine with a different port number.
+* Added some more output in the bot startup to display the full path to the database being used as well as what exchange the bot is licensed for. Handy info to help us help you with any troubleshooting you may need.
+* Introduced a new 'delete-db.bat' script for windows users. This will delete the database for you in your database directory. This was provided by Craigs Cryptos (thank you!).
+* Upgraded our core exchange library. This version included various optimizations and additions to both Coinbase Pro and Binance api clients.
+* More fine tuning on setup. Some users were bouncing out when their setup didn't properly complete. This should be fixed.
+* Setup step one error checking and reporting improvements. License keys are checked more rigorously by the local bot api.
+
+Known issues
+---
+
+* Binance: Some users are still reporting that they cannot see MATIC and a few other currencies. This is ongoing as it has not yet been reproduceable.
+* Sometimes, some of the trading view charts might not render correctly. This seems to be a low percentage of the time, but it is being investigated.
+
+As always, you can help out by reporting any issues you see to the proper online channels so that we can get them into our ticketing system.
+
+1.1.0-beta8
+===
+
+Dec 2, 2019
+
+Fast releases usually mean important bug fixes.
+
+* ALL: Fixed a regression in the pairs not showing up. ([Ticket #3] cant get Pairs to wotrk for Windows 10.)
+* Coinbase Pro: Fixed regression in websocket where candlesticks were not processing correctly.
+* Switched over from text changelog to markdown version. Not a huge difference here, just some adjustment to the formatting.
+
+Known issues
+---
+
+* Binance: There are still some entry/exit errors for MIN_NOTIONAL and LOT_SIZE. This can prevent a lot of orders from going through, but some still can. Beta9 will focus on dialing these in better.
+* Binance: Some users are still reporting that they cannot see MATIC and a few other currencies. This is ongoing as it has not yet been reproduceable.
+* Sometimes, some of the trading view charts might not render correctly. This seems to be a low percentage of the time, but it is being investigated.
+
+
+1.1.0-beta7
+===
+
+Nov 30, 2019
+
+* Fixed an issue in the engine where the manual buy/sell was using the wrong timestamp sometimes to record the trade (this was only a local issue and did not affect the order on the exchange itself).
+* The percent and fixed amounts should now reflect correctly on the UI and for any orders placed.
+* Dashboard and ui cleanup.
+* Added a debug section that displays all the pairs that the bot is currently using. This is the start of some user diagnostic tools to help reporting any issues they may see.
+
+As always, report any issues you see to the online conduits.
+
+Known issues:
+
+* Some people are reporting some ui issues with price conversions - these are still ongoing since they're only affecting a small amount of users.
+
+* Some users are also reporting that a few pairs are missing. This is still an ongoing investigation to figure out why this is happending. It's so far only affected a small amount of users.
+
+---
+
+Nov 28, 2019
+1.1.0-beta6
+=========================
+
+For our U.S. users, Happy Thanksgiving!
+
+Meat's back on the menu boys!... (There's a movie reference there..)
+
+* Binance is back! And it's fast! Backtesting works. Paper trading works. Live trading, mostly works. (See known issues below). We have enabled USDT, ETH, BNB, and BTC markets. More to come in later releases.
+* There are more little UI fixes on backtesting and the trading screens.
+* Backtesting pair selection box now supports search again! Start typing a pair and it will autocomplete the list (again).
+
+This release is primarily for users to start using their Binance accounts again. It is sill beta and while we have made some successful live trades, there are still some minor issues we're ironing out. Other than that, we're getting close to our final 1.1.0 release.
+
+As always, report any issues you see to the online conduits.
+
+Known issues:
+
+* Binance sometimes doesn't calculate the correct qty of quote asset and therefore misses a trade. Because of this, no entry will be made - we're categorizing this as a minor, non-critical issue.
+
+* Market buy/sell now has not been fully tested on Binance yet for Live trading. If you do decide to try it, use at your own risk. We'll have it tested more thoroughly in the next release. It's possible it does work as the code was already abstracted out and working in prior Coinbase Pro releases.
+
+
+Nov 26, 2019
+1.1.0-beta5
+=========================
+
+Lots of tweaks and bug fixes!
+
+* SYSTEM PASSWORD IS REQUIRED! We now force you to set a system password on start/install of the bot. Subsequent page loads will require the password to be added. Upon setting a new password or providing it via an access request, the system will save it as a cookie on the browser so you don't have to keep re-entering it. This overall will help with security (the http connection is still clear text) and users have been asking about this for a while.
+
+NOTE: To reset the password (in case you lose it), add the --reset-password=true flag to the end of the start.sh/.bat command. Start the bot, let it boot. There will be a message saying the password has been reset. Stop the bot. Remove the reset-password flag. Restart the bot. You will then be prompted to enter your new password.
+
+* Dashboard daily profit now tracks the current week correctly.
+* Edit Paper / Live trades now should work as expected. There were a few bugs that wouldn't allow switching from a fixed/percent price as well as form fields that would duplicate each time edit was clicked. These have been fixed and the functionality should be stable.
+* Details screem now shows better info on your fixed/percent amount along with fiat equivalent.
+* There was an issue where failed orders kept hitting the exchange too quickly. These are now handled correctly and as part of this, the order events logs the exchange spefific error.
+* Out of memory/Websocket errors - these should all be cleaned up and handled correctly now.
+* Collapsing / Expanding Paper/Live trades now persists locally. This means if you collapse your pairs view, go to another screen, come back - the pairs will show in the collapsed view.
+* Fixed an issue with the Trading View charts where they could get all weird and the trades bunch up on the right side of the screen.
+* Live Trading is still considered ready for use now. As always, if you see any issues, don't hesistate to grab someone in the group.
+
+Known issues:
+
+* Binance has been disabled, but will return soon.
+
+WARNING: DO NOT (YET) PUT THIS ON YOUR BINANCE PAIRS. THERE HAS BEEN SIGNIFICANT CHANGES TO THE TRADING ENGINE AND WE HAVE NOT THOUROUGHLY TESTED BINANCE (that should be available in beta 4). RUN THIS ON A COMPLETELY SEPARATE VM/VPS/MACHINE UNLESS YOU WANT TO TAKE THAT RISK. IT COULD WORK, BUT WE JUST DON'T FULLY KNOW YET. WE WILL HAVE THIS RESOLVED BY THE 1.1.0 FINAL.
+
+
+
+Nov 15, 2019
+1.1.0-beta4
+=========================
+
+Ooops, we skipped beta3.
+
+* MANUAL BUY & SELL ARE IN! You can now execute manual market orders with a click of the button. See the pair details screen for the new Buy and Sell buttons.
+* Dashboard now behaves as expected with the multiple quote currencies.
+* Lots more tightening and bug fixing of the engine code. Lots.
+* UI's for paper trading and live trading are now consistent and feature complete.
+* Tons of UI cleanup on all the screens.
+* Bug fixes for some people seeing issues where the bot would never start up properly.
+
+* Live Trading is still considered in final testing phases and while it's 'working' and should be ok, you might want to use small ammounts for now.
+
+Known issues:
+
+* Binance has been disabled, but will return soon.
+
+* Editing Live and Paper trades is still in beta - there might be minor bugs.
+
+* Still seeing intermittent sync issues on fetching amounts for conversion on the various forms (non-critical).
+
+WARNING: DO NOT (YET) PUT THIS ON YOUR BINANCE PAIRS. THERE HAS BEEN SIGNIFICANT CHANGES TO THE TRADING ENGINE AND WE HAVE NOT THOUROUGHLY TESTED BINANCE (that should be available in beta 4). RUN THIS ON A COMPLETELY SEPARATE VM/VPS/MACHINE UNLESS YOU WANT TO TAKE THAT RISK. IT COULD WORK, BUT WE JUST DON'T FULLY KNOW YET. WE WILL HAVE THIS RESOLVED BY THE 1.1.0 FINAL.
+
+
+Oct 8, 2019
+1.1.0-beta2
+=========================
+
+* More updates to the trading engine to tighten up the api restrictions the exchanges require.
+* Lots of internal additions to make Coinbase Pro work more like a modern exchange...
+* More tweaks to the setup screens so that the Next button enables when the forms are valid. This helps to solve the force clicking out of a field to get the button to update.
+* Paper trades are no longer deleted when the Live Trade is created.
+* More minor ui updates to the trading details screen.
+
+* Live Trading is still considered in final testing phases and while it's more stable than the previous beta, use at your own risk - for now.
+
+Known issues:
+
+* Editing trades has some issues on how the form is configured. Trying to edit a trade multiple times without refreshing the page, will cause the form to not work as expected. The work around is to reload the page after each save done on the edit modal.
+
+* When a pair details is displayed, some of the pricing & p/l values are not correct. This is because Coinbase Pro does not provide updates every second as Binance does. After the first trade has been received from Coinbase Pro, these numbers will update correctly.
+
+* Dashboard BTC Markets section is still using Binance - this will be updated to use the selected exchange in the coming betas.
+
+* Binance is still not tested - see warning below.
+
+WARNING: DO NOT (YET) PUT THIS ON YOUR BINANCE PAIRS. THERE HAS BEEN SIGNIFICANT CHANGES TO THE TRADING ENGINE AND WE HAVE NOT THOUROUGHLY TESTED BINANCE (that should be available in beta 4). RUN THIS ON A COMPLETELY SEPARATE VM/VPS/MACHINE UNLESS YOU WANT TO TAKE THAT RISK. IT COULD WORK, BUT WE JUST DON'T FULLY KNOW YET. WE WILL HAVE THIS RESOLVED BY THE 1.1.0 FINAL.
+
+
+Sept 21, 2019
+1.1.0-beta1
+=========================
+
+* Fixed a bug in the edit Paper Trade form where the rsi fields weren't working correctly.
+* Added support to start the bot on a different port. Just append port=8080 (or whatever high number you want) and the bot will start and bind to that port.
+
+* Live Trading is still considered in testing phase so don't rush in just yet. We'll announce when it's safe.
+
+WARNING: DO NOT (YET) PUT THIS ON YOUR BINANCE PAIRS. THERE HAS BEEN SIGNIFICANT CHANGES TO THE TRADING ENGINE AND BECAUSE WE'RE AMERICANS AND BINANCE KICKED US OUT, WE HAVE NOT THOUROUGHLY TESTS EVERYTHING. RUN THIS ON A COMPLETELY SEPARATE VM/VPS/MACHINE UNLESS YOU WANT TO TAKE THAT RISK. IT COULD WORK, BUT WE JUST DON'T FULLY KNOW YET. WE WILL HAVE THIS RESOLVED BY THE 1.1.0 FINAL.
+
+
+Sept 18, 2019
+1.0.6-244
+=========================
+
+* Fixed a bug in the CoinbasePro candles that wasn't respecting candle close time. Eeeek! This caused all kinds of probs and the chart looks solid once again.
+* Fixed the negative current capital for paper trading.
+* Fixed the Step 2 process on setup. The exchage credentials now correctly handle any typos or errors the exchange returns.
+* Live Trading is still considered in testing phase so don't rush in just yet. We'll announce when it's safe (it's close tho!).
+
+
+Sept 17, 2019
+1.0.6-216
+=========================
+
+* Updates to the Coinbase Pro data sync services. We are processing trades more proactively now to deliver better updates to the trading engine and TradingView chart(s).
+
+
+Sept 8, 2019
+1.0.6-213
+=========================
+
+* Data sync service attempts to 'heal' gaps in candle pricing for exchanges that have flaky or not enough trades in their system. This is done to minimize anomolies in candles that the strategies run over.
+* Editing live trades is in, but still needs more testing - use at your own risk (for now)!
+
+
+Sept 7, 2019
+1.0.6-212
+=========================
+
+* Added in proper system architecture to reduce api calls and use the database directly again. We are back to fast refreshes on charts, backtesting, and trading.
+
+
+Sept 2, 2019
+1.0.6-209
+=========================
+
+* Bug fixes for settings screen.
+* Bug fixes for setup flow not saving Coinbase Pro password correctly.
+* Fixes for some of the Coinbase Pro ticker fetches.
+
+
+Sept 1, 2019
+1.0.6-207
+=========================
+
+* More bug fixes and updates for paper trading edit
+* Tightening up of CoinbasePro api rate limiting
+
+
+Aug 31, 2019
+1.0.6-205
+=========================
+
+* Bug fixes for paper trading.
+* You can now edit most paper trade settings on the fly.
+
+
+Aug 20, 2019
+1.0.6-203
+=========================
+
+* Coinbase works with backtesting.
+* Coinbase works with papertrading.
+
+
+June, 2019
+1.0.6-197
+=========================
+
+
+First release!
