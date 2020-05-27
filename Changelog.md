@@ -4,7 +4,7 @@ The Changelog
 1.1.0 - FINAL!!
 ===
 
-May 26, 2020
+May 27, 2020
 
 The world is mad right now. Viruses, lockdowns, contact tracing and snitching, small businesses collapsing, massive unemployment numbers, exploding deficits that we didn't think were possible - in 30 days time. Dogs and cats living together, mass hysteria!
 
