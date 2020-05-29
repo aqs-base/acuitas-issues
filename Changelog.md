@@ -14,11 +14,11 @@ NOTE: The Windows installer does not yet do the auto-update, so Windows users wi
 
 All the bugs can be referenced on the Acuitas Issues site: https://github.com/aqs-base/acuitas-issues
 
-* Issue 1: Can't create live trade from paper trade.
-* Issue 2: Live and paper trade stats row was missing the trade count in the P/L today box.
-* Issue 3: Trailing is still off.
-* Issue 4: Binance MIN_NOTIONAL is still causing issues.
-* Issue 5: Table headers in trades table for pair details not rendering as expected on first order.
+* Issue #1: Can't create live trade from paper trade.
+* Issue #2: Live and paper trade stats row was missing the trade count in the P/L today box.
+* Issue #3: Trailing is still off.
+* Issue #4: Binance MIN_NOTIONAL is still causing issues.
+* Issue #6: Table headers in trades table for pair details not rendering as expected on first order.
 
 ##### Known Issues
 
