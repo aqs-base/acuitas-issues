@@ -19,6 +19,7 @@ All the bugs can be referenced on the Acuitas Issues site: https://github.com/aq
 * Issue #3: Trailing is still off.
 * Issue #4: Binance MIN_NOTIONAL is still causing issues.
 * Issue #6: Table headers in trades table for pair details not rendering as expected on first order.
+* Issue #8: UI does not load when bot is behind an nginx proxy because of host and port issues.
 
 ##### Known Issues
 
