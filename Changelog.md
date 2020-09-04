@@ -1,6 +1,51 @@
 The Changelog
 ===
 
+1.1.2
+===
+
+Sep 2, 2020
+
+This release is mainly a performance and bug fix release.
+
+NOTE: The Windows installer does not yet do the auto-update, so Windows users will still need to uninstall / install to get this version going.
+
+##### Fixes
+
+All the bugs can be referenced on the Acuitas Issues site: https://github.com/aqs-base/acuitas-issues
+
+* Issue #1: BINANCE: Updated the sell calculations so that the bot will take into account if not enough BNB is available for fees. If this is the case, the fees are then taken from the appropriate side.
+* Issue #2: Exchange data feeds have been throttled back to only listen for pairs that are in Paper or Live trading.
+* Issue #3: You can now Markey BUY/SELL when a pair is off. This will work both on Paper and Live trading.
+* Issue #4: Delisted pairs are now handled correctly and will not block the ui. Delisted pairs will also not try to trade and the only option now in the UI is to delete them.
+* Issue #6: Performance bug fixed that was causing slow load times on the client UI; this impacted load by 2-4 seconds.
+* Issue #8: Minor UI fixes.
+
+##### Known Issues
+
+* Pair details screen does not stream complete volume to the chart. This is a non-critical issue since we are not using an volume based indicators at the moment. Navigating away from pair details and back will force the chart to reload, which will pull the proper volume from the local database. This will be fixed in a later point release.
+
+* The hook to try to recover from your computer sleeping is still not working as we want. To be clear, this bot is not meant to be installed on anything other than a dedicated desktop/server, or vps. Powersaving, napping, etc, are not friendly to up to the second data flowing into the system. We've added some code to try to make the engine 'reset' when it detects a sleep/wake cycle, but this is still ongoing and experimental.
+
+* Translation updates are coming. We had to pull the bulk of the translation code out when we switched the UI frameworks and will be adding this back in in a later point release. Apologies in advance to our non-U.S. English speaking friends.
+
+* Possible issues with local currency conversion for display. We haven't tested every locale yet, but for the group we did, everything converted into local currency for display correctly. If yours isn't, please let us know.
+
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
+
 1.1.1
 ===
 
