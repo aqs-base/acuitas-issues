@@ -1,6 +1,54 @@
 The Changelog
 ===
 
+1.2.0
+===
+
+Dec 4, 2020
+
+It's here, **DCA has been added**!
+
+We have rounded out an insane year with an awesome feature **many** people have requested - Dollar Cost Averaging. We have made this as simple as possible too. Everything is gui up front and you can choose between a DCA buy signal of a fixed percentage drop OR a buy signal of the strategy iteself.
+
+For fixed percent signal you can specify how much percent down the price will go for each buy (ie, 2% will buy when the price drops 2% from the last entry) as well as how many times to buy (ie, buy a max of 5 times). We have also included a few configs to specify they buy drop type. So if you have 1% and want a little more tweaking you can make that 1% applied to either a Log2 or Fibonacci calculation. This will allow for steeper curves that could potentially be more 'aggressive' in how sharp the price drop is.
+
+
+
+Lastly, you can specify the strategy itself as the entry signal for the buy drops. This setting does not rely on any fixed or calculated percentage drop and runs solely off the strategy itself, so, you could get interesting results. Depending on how you have your strategy tuned, you could buy bigger drops and possibly exit at bigger profits. We will be expanding on this more in the future, so stay tuned!
+
+
+NOTE: The Windows installer does not yet do the auto-update, so Windows users will still need to uninstall / install to get this version going.
+
+##### Fixes
+
+All the bugs can be referenced on the Acuitas Issues site: https://github.com/aqs-base/acuitas-issues
+
+* Minor ui fixes on the trading details screens.
+
+##### Known Issues
+
+* Pair details screen does not stream complete volume to the chart. This is a non-critical issue since we are not using an volume based indicators at the moment. Navigating away from pair details and back will force the chart to reload, which will pull the proper volume from the local database. This will be fixed in a later point release.
+
+* The hook to try to recover from your computer sleeping is still not working as we want. To be clear, this bot is not meant to be installed on anything other than a dedicated desktop/server, or vps. Powersaving, napping, etc, are not friendly to up to the second data flowing into the system. We've added some code to try to make the engine 'reset' when it detects a sleep/wake cycle, but this is still ongoing and experimental.
+
+* Translation updates are coming. We had to pull the bulk of the translation code out when we switched the UI frameworks and will be adding this back in in a later point release. Apologies in advance to our non-U.S. English speaking friends.
+
+* Possible issues with local currency conversion for display. We haven't tested every locale yet, but for the group we did, everything converted into local currency for display correctly. If yours isn't, please let us know.
+
+* The Live and Paper trade dashboard Open Positions sometimes display the incorrect P/L amounts. This will be fixed in an upcoming point release and does not affect trading.
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
 1.1.2
 ===
 
