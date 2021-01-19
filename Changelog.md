@@ -1,6 +1,66 @@
 The Changelog
 ===
 
+1.2.2
+===
+
+Jan 19, 20201
+
+Lot's of updates and fixes. We'd like to thank Eric, Paul, Rai and everyone else that helped us pound on this. I made a huge difference!
+
+##### Fixes
+
+* As volume spiked, Coinbase Pro decided to not upgrade their infrastructure and let some api requests return 404 not found errors. Not surprised. This forced us to refactor some of the exchange code to deal with this. Extensive testing went into this over many days. If you saw any weird order errors with CB Pro, this is probably why and it is fixed.
+
+* Fixed a dust issue on CB Pro and made sure that the api is always using the right side of the pair when doing quantity conversions. This should also fix an min amount errors people maybe have been seeing with CB Pro.
+
+* Fixed Binance LOT_SIZE issue.
+
+* Refactored all the accounting (big thanks to Eric for this) and dialed in the numbers more. This includes paper trading as well.
+
+* Fixed a bug that prevented manual buy / sells from going through.
+
+* Fixed bug for users that did not provide a last name on eval setup :facepalm: and were then prevented later from inputting a license to unlock the eval.
+
+* Fixed a bug in the Settings > Account where account information could not be updated (like first and last name).
+
+* TRUNCATE DATABASE is back in on Settings! This will truncate all candles past 30 days. If your db feels sluggish or too big, give this a shot.
+
+* RESET DATABASE is back in the Settings as well. Resetting the db removes all data EXCEPT account, exchange configuration, and saved backtesting settings. You will need to manually reset all your paper trading account balances.
+
+* Removed the button to flip a trade panel to the back panel. This will be re-introduced later if warranted.
+
+* File locations are now placed under a port number folder if not using the default port. So, for instance, if the port flag has been set to ```port=4000```, the db and logs will live under ```HOME/acuitas/4000```. This now allows multiple bots running under different ports on the same machine and have all the file locations segmented correctly. If you are using the default port, then you will see the logs and database files in ```HOME/acuitas``` and no port path will be specified.
+
+* New startup flag has been added to place the database wherever you want! Using the ```dbpath=``` flag, you can specify ***any*** directory/folder on your machine and the database will be placed there. This will override and work with the ```port=``` flag as expected. If you specified ```dbpath=G:\db1 port=4000```, the bot will place the logs in ```HOME\acuitas\4000``` and the db full path will be ```G:\db1\acuitas.sqlite```. Finally, the file paths will be displayed in the console window as the bot starts up.
+
+##### Known Issues
+
+Dashboard: May still show open positions when they are closed on the trade details.
+
+Backtesting: For some runs, the backtesting engine may re-fetch data when not needed. This will be fixed in 1.2.3.
+
+Paper / Live Trading: Sometimes when an order is placed, it may not update as expected in the trades table. Quick fix will be a reload and this will be addressed in 1.2.3 or 1.2.4.
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
+
+1.2.1
+===
+
+Sorry, lots going on around the Dec holidays and we didn't get a chance to provide the release notes. :( See 1.2.2 above.
+
 1.2.0
 ===
 
@@ -36,6 +96,7 @@ All the bugs can be referenced on the Acuitas Issues site: https://github.com/aq
 * Possible issues with local currency conversion for display. We haven't tested every locale yet, but for the group we did, everything converted into local currency for display correctly. If yours isn't, please let us know.
 
 * The Live and Paper trade dashboard Open Positions sometimes display the incorrect P/L amounts. This will be fixed in an upcoming point release and does not affect trading.
+
 ##### Filing issues:
 
 All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
