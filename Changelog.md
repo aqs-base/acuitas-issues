@@ -1,6 +1,43 @@
 The Changelog
 ===
 
+1.2.3
+===
+
+Jan 26, 20201
+
+Minor but critical updates.
+
+##### Fixes
+
+* Binance paper trading fees are now saved correctly. Prior to this the trade lines on the details page gave incorrectly formatted results.
+
+* Manual buy / sell buttons has a bug that prevented buys or sells from being made. This is now fixed.
+
+* Tickers feeds are now purely websocket based and api is only used on boot for warmup. This should reduce api requests.
+
+* Backtesting candle fetch has been updated. A new candle set should only be fetched if the current time is greater than the latest candle for the pair/period in the db. This should significantly speeds on subsequent backtests using the same pair and period timeframe.
+
+##### Known Issues
+
+Dashboard: May still show open positions when they are closed on the trade details.
+
+Exchagne orders: FOK Limit orders my not go through as expected due to the local order book moving. We are researching this issue and should have a solution in the coming release(s).
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
+
 1.2.2
 ===
 
