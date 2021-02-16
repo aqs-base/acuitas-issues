@@ -1,6 +1,45 @@
 The Changelog
 ===
 
+1.3.0
+===
+
+Feb 16, 20201
+
+Binance.us has been added and the exchange section of the bot has had a major overhaul.
+
+##### Fixes
+
+* Binance.com websockets are fixed and will work as expected.
+
+* All three exchanges now have updates to the rate limiting to make it more precise.
+
+* Manual buy / sell buttons for live trading should now be fixed. Added better messaging as well in case of any kind of failure.
+
+
+##### Known Issues
+
+Dashboard: Open positions has been removed and will return in the next release (ui only, does not affect engine).
+
+Trading details: The trades list can sometimes not display the latest order made. A page reload should fix this temporarily. This will be fixed in the next release (ui only, does not affect engine).
+
+General: High numbers of orders may slow down the loading of the bot. This will be fixed in the next release (ui only, does not affect engine).
+
+Documentation: We're still building this out and it is in progress as of this release.
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
 1.2.3
 ===
 
@@ -22,7 +61,7 @@ Minor but critical updates.
 
 Dashboard: May still show open positions when they are closed on the trade details.
 
-Exchagne orders: FOK Limit orders my not go through as expected due to the local order book moving. We are researching this issue and should have a solution in the coming release(s).
+Exchange orders: FOK Limit orders my not go through as expected due to the local order book moving. We are researching this issue and should have a solution in the coming release(s).
 
 ##### Filing issues:
 
