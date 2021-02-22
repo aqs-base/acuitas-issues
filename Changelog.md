@@ -4,7 +4,7 @@ The Changelog
 1.3.1
 ===
 
-Feb 21, 20201
+Feb 21, 2021
 
 This is a minor point fix to address two critical issues with Binance/.us and Coinbase Pro exchanges.
 
