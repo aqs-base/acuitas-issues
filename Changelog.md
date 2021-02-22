@@ -1,6 +1,48 @@
 The Changelog
 ===
 
+1.3.1
+===
+
+Feb 21, 20201
+
+This is a minor point fix to address two critical issues with Binance/.us and Coinbase Pro exchanges.
+
+##### Fixes
+
+* Fixed binance/u.s. issue for bot not entering on enough min notional. Manual and automated buys and sells should be good going forward.
+
+* Added 2 new sections to the Settings -> Reset.
+  1. Paper Trade Orders reset. This allows you to clear out all your existing paper trade orders for a clean slate. Handy so you don't have to completely reset the whole db and lose your paper trades.
+  2. Live Trade Orders reset. Works like paper trade reset. Since the binance issue mentioned above, there might now be a way to exit out because qty is too low. Now you can clear all your live trade orders (for all pairs), and exit your positions on the exchange. Again, better than resetting your entire db.
+
+* Fixed high cpu load for Coinbase Pro.
+
+* Added USDC and BUSD quotes for bianance.com.
+
+##### Known Issues
+
+Dashboard: Open positions has been removed and will return in the next release (ui only, does not affect engine).
+
+Trading details: The trades list can sometimes not display the latest order made. A page reload should fix this temporarily. This will be fixed in the next release (ui only, does not affect engine).
+
+General: High numbers of orders may slow down the loading of the bot. This will be fixed in the next release (ui only, does not affect engine).
+
+Documentation: We're still building this out and it is in progress as of this release.
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
 1.3.0
 ===
 
