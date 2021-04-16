@@ -1,6 +1,76 @@
 The Changelog
 ===
 
+1.3.3
+===
+
+April 16, 2021
+
+This is crtical hotfix for Binance.us.
+
+##### Fixes
+
+* Fixed websocket error Binance.us users were seeing on bot startup.
+
+##### Known Issues
+
+Dashboard: Open positions has been removed and will return in the next release (ui only, does not affect engine).
+
+Trading details: The trades list can sometimes not display the latest order made. A page reload should fix this temporarily. This will be fixed in the next release (ui only, does not affect engine).
+
+General: High numbers of orders may slow down the loading of the bot. This will be fixed in the next release (ui only, does not affect engine).
+
+Documentation: We're still building this out and it is in progress as of 1.3.x series.
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
+1.3.2
+===
+
+Mar 12, 2021
+
+This is a minor point fix.
+
+##### Fixes
+
+* Fixed 429 errors on startup.
+
+* Fixed problem on setup where an invalid exchange api key was entered and could not be corrected.
+
+##### Known Issues
+
+Dashboard: Open positions has been removed and will return in the next release (ui only, does not affect engine).
+
+Trading details: The trades list can sometimes not display the latest order made. A page reload should fix this temporarily. This will be fixed in the next release (ui only, does not affect engine).
+
+General: High numbers of orders may slow down the loading of the bot. This will be fixed in the next release (ui only, does not affect engine).
+
+Documentation: We're still building this out and it is in progress as of 1.3.x series.
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
 1.3.1
 ===
 
