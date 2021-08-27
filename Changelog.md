@@ -1,6 +1,49 @@
 The Changelog
 ===
 
+1.4.0
+===
+
+August 27, 2021
+
+Welcome Kucoin!
+We have added Kucoin as our fourth exchange. A lot of work went into this and our thanks goes out to Thómas, our new developer. The bot currently does not support KCS discount fees yet, but we will be adding that support in a point release.
+
+##### New Additions
+
+* Private API - You can no specify in the settings the ability to not use the private api calls and only public calls. Certain members have asked for this as they have worked on some interesting ways to make the bot do things no one else does. This helps them do that.
+* Manual buy/sell confirmation - You can not turn on or off a confirmation dialog for every manual buy sell you do.
+* More meta data - the Exchange section of the Settings now shows all the pairs meta data for minimum and max amounts. Handy info since the exchanges won't give this to you up front.
+* More quotes have been turned on for all the exchanges.
+
+##### Fixes
+
+* Updates to some of the trades calculations in the engines to make sure fees are applied correctly.
+
+##### Known Issues
+
+Dashboard: Open positions has been removed and will return in a future release (ui only, does not affect engine).
+
+Trading details: The trades list can sometimes not display the latest order made. A page reload should fix this temporarily. This will be fixed in the next 1.4.1 release (ui only, does not affect engine).
+
+General: High numbers of orders may slow down the loading of the bot. This will be fixed in the next 1.4.1 release (ui only, does not affect engine).
+
+Documentation: We're still building this out and it is in progress as of 1.4.x series.
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
+
 1.3.3
 ===
 
