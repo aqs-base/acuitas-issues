@@ -1,6 +1,38 @@
 The Changelog
 ===
 
+1.4.1
+===
+
+August 29, 2021
+
+##### Fixes
+
+* Fixes issue for Kucoin DCA exit.
+
+##### Known Issues
+
+Dashboard: Open positions has been removed and will return in a future release (ui only, does not affect engine).
+
+Trading details: The trades list can sometimes not display the latest order made. A page reload should fix this temporarily. This will be fixed in the next 1.4.1 release (ui only, does not affect engine).
+
+General: High numbers of orders may slow down the loading of the bot. This will be fixed in the next 1.4.1 release (ui only, does not affect engine).
+
+Documentation: We're still building this out and it is in progress as of 1.4.x series.
+
+##### Filing issues:
+
+All issues can be filed and tracked here: https://github.com/aqs-base/acuitas-issues/issues
+
+Please provide:
+
+* Your OS, version, basic comp specs (memory, etc).
+* The bot version.
+* Enough of a description to give us an idea of what's going on.
+* Any and all screenshots you can provide.
+
+DO NOT INCLUDE SENSITIVE DATA SUCH AS FULL NAMES, EMAIL, LICENSE KEYS, ETC.
+
 1.4.0
 ===
 
